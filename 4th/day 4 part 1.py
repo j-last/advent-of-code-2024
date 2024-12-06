@@ -1,6 +1,4 @@
-orientations = (((0, 1), (0, 2), (0,3)), 
-                ((1, 1), (2, 2), (3, 3)),
-                ((-1, 1), (-2, 2), (-3, 3)))
+"""This is by no means efficient lol part 2 went much better"""
 
 def find_xmas(wordsearch):
     wordsearch = wordsearch.split("\n")
