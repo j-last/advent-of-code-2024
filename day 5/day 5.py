@@ -45,9 +45,9 @@ def convert_to_list(input):
         output.append(list(map(int, update.split(","))))
     return output
 
-with open(r"5th\ordering_rules.txt", "r") as f:
+with open(r"day 5t\ordering_rules.txt", "r") as f:
     ordering = f.readlines()
-with open(r"5th\updates.txt", "r") as f:
+with open(r"day 5\updates.txt", "r") as f:
     updates = f.readlines()
 
 ordering = convert_to_dict(ordering)
