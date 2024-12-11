@@ -29,7 +29,7 @@ def traverse_map(lab_map, index):
     return lab_map.count("X")
 
 
-with open(r"day 6\input_map.txt", "r") as f:
+with open(r"day 6\input.txt", "r") as f:
     lab_map = f.read()
 
 ROOM_SIZE = lab_map.find("\n") + 1
