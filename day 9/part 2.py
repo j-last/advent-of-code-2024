@@ -48,7 +48,7 @@ def calculate_checksum(disc):
 
 with open(r"day 9\input.txt", "r") as f:
     input = f.read()
-#input = "2333133121414131402"
+
 compacted_disc = compact_files(input)
 checksum_value = calculate_checksum(compacted_disc)
 
