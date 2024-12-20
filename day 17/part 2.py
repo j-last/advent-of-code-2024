@@ -38,10 +38,8 @@ def perform_program(a, b, c, program):
     return output[:-2]
 
 
-a = 0
-while True:
+for a in range(99999, 999999999):
     if perform_program(a, b, c, program) == str(program)[1:-1]:
         break
-    else: a += 1
 
 print(a)

@@ -21,41 +21,41 @@ with open(r"day 15\input_movements.txt", "r") as f:
     movements = f.read()
 
 # -------------------------------------------------------------------
-def move_vert(x, y, grid, val):
-    if grid[y][x] == ".":
-        return True, grid
-    if grid[y+val][x] == "#":
+def move_vert_wrapper(x, y, grid, val):
+    def move_vert(x, y, val):
+        try:
+            nonlocal grid
+
+            if grid[y+val][x] == ".":
+                grid[y+val][x] = grid[y][x]
+                grid[y][x] = "."
+            
+            else:
+                if grid[y+val][x] == "[":
+                    move_vert(x, y+val, val)
+                    move_vert(x+1, y+val, val)
+                elif grid[y+val][x] == "]":
+                    move_vert(x, y+val, val)
+                    move_vert(x-1, y+val, val)
+
+            if grid[y+val][x] == ".":
+                grid[y+val][x] = grid[y][x]
+                grid[y][x] = "."
+        except IndexError:
+            return False
+        
+    if move_vert(x, y, val) == False:
         return False, grid
 
-    if grid[y][x] == "[":
-        if grid[y+val][x] != "." or grid[y+val][x+1] != ".":
-            leftcan, tempgrid = move_vert(x, y+val, grid, val)
-            rightcan, tempgrid = move_vert(x+1, y+val, tempgrid, val)
-            if leftcan and rightcan:
-                grid = tempgrid
-        if grid[y+val][x] == "." and grid[y+val][x+1] == ".":
-            grid[y+val][x], grid[y+val][x+1] = "[", "]"
-            grid[y][x], grid[y][x+1] = ".", "."
-            return True, grid
-        return False, grid
-    elif grid[y][x] == "]":
-        if grid[y+val][x-1] != "." or grid[y+val][x] != ".":
-            leftcan, tempgrid = move_vert(x-1, y+val, grid, val)
-            rightcan, tempgrid = move_vert(x, y+val, tempgrid, val)
-            if leftcan and rightcan:
-                grid = tempgrid
-        if grid[y+val][x-1] == "." and grid[y+val][x] == ".":
-            grid[y+val][x-1], grid[y+val][x] = "[", "]"
-            grid[y][x-1], grid[y][x] = ".", "."
-            return True, grid
-        return False, grid
-    else:
-        move_vert(x, y+val, grid, val)
-        if grid[y+val][x] == ".":
-            grid[y+val][x] = grid[y][x]
-            grid[y][x] = "."
-            return True, grid
-        return False, grid
+    for rownum, row in enumerate(grid):
+        for colnum, item in enumerate(row):
+            if item == "[" and grid[rownum][colnum+1] != "]":
+                return False, grid
+    return True, grid
+            
+
+
+    
         
 
             
@@ -65,9 +65,10 @@ from copy import deepcopy
 
 def make_movement(robot_x, robot_y, grid, move):
     if move == "^":
-        moved, tempgrid = move_vert(robot_x, robot_y, deepcopy(grid), -1)
+        moved, newgrid = move_vert_wrapper(robot_x, robot_y, deepcopy(grid), -1)
         if moved:
-            grid = tempgrid
+            grid = newgrid
+        
 
     elif move == ">":
         for x in range(robot_x, len(grid[robot_y])):
@@ -80,9 +81,10 @@ def make_movement(robot_x, robot_y, grid, move):
                 grid[robot_y][x] = "."
 
     elif move == "v":
-        moved, tempgrid = move_vert(robot_x, robot_y, deepcopy(grid), 1)
+        moved, newgrid = move_vert_wrapper(robot_x, robot_y, deepcopy(grid), 1)
         if moved:
-            grid = tempgrid
+            grid = newgrid
+        
 
     elif move == "<":
         for x in range(robot_x, -1, -1):
@@ -104,7 +106,6 @@ for move in movements:
         if "@" in grid[rownum]:
             x, y = grid[rownum].index("@"), rownum
     grid = make_movement(x, y, grid, move)
-
 
 # Getting the numerical answer value
 sumGPS = 0
