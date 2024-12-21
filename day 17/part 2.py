@@ -37,9 +37,16 @@ def perform_program(a, b, c, program):
                 c = a // (2**combo_operand)
     return output[:-2]
 
-
-for a in range(99999, 999999999):
+from time import sleep
+# after some investigation, the length of the output program is to do with powers of 8
+# if 'a' is between 8^2 and 8^3, it will output 3 values
+# we need it to output len(program) = 16 values
+# so we need a between 8^15 & 8^16
+# this is still too many values to check though
+# only the ones from the number below end in 0s though
+for a in range(109549449117696, 109550657077248):
     if perform_program(a, b, c, program) == str(program)[1:-1]:
+        print(a)
         break
 
-print(a)
+print("end")
