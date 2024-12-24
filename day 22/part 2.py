@@ -34,17 +34,16 @@ for valnum, value in enumerate(values):
         value = get_next_num(value)
         prices.append(int(str(value)[-1]))
         price_changes.append(prices[-1] - prices[-2])
+        # ASSUMPTION MADE: the sequence will at some point produce a price of 9 for at least one sale
         if prices[-1] == 9 and price_changes[-4:] not in sequences and len(price_changes[-4:]) == 4:
             sequences.append(price_changes[-4:])
     all_prices.append(prices)
     all_price_changes.append(price_changes)
-    print(valnum)
 
 
 max_total = 0
 max_total_index = None
-print(len(sequences))
-for seq_num, sequence in enumerate(sequences[5000::-1]):
+for seq_num, sequence in enumerate(sequences):
     total = 0
     for prices, price_changes in zip(all_prices, all_price_changes):
         for i in range(len(price_changes)-3):
@@ -54,13 +53,6 @@ for seq_num, sequence in enumerate(sequences[5000::-1]):
     if total > max_total:
         max_total = total
         max_total_index = seq_num
-    print(seq_num, max_total)
-# 1911 or something i think
-print(sequences[max_total_index], max_total)
-print("END")
 
-
-
-
-
-
+# 4 hours later...
+print(max_total)
