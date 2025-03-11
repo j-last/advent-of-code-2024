@@ -3,6 +3,8 @@
  This is a yearly event that happens in the run up to christmas each year and was reccomended to me at university, so I took on the challenge.
  It consists of 25 days of coding problems, each day having 2 parts and each part having a 'final answer' for the input data given. The idea is that the problems get harder as you get closer to christmas day.
 
+ Due to the nature of the daily commitment and unlikeliness to return at a future date to work on the problems, most solutions are not well documented and not the most readable of code, but run and get the corret answer.
+
  In the end I achieved part one on 24/25 days, and the second part on 15/25 days (which I'm fairly proud of for sticking at it!).
  I definitely could have gotten more if I'd had dedicated more time to it - but coding isn't what christmas is about!
 
